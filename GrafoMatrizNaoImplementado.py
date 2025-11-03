@@ -1,31 +1,44 @@
 def criar_grafo():
-    """
-    Cria e retorna uma matriz de adjacência vazia e uma lista de vértices.
+    matriz = []
+    vertices = []
+    return matriz, vertices
 
-    Passos:
-    1. Criar uma lista vazia chamada matriz (para armazenar as conexões).
-    2. Criar uma lista vazia chamada vertices (para armazenar os nomes dos vértices).
-    3. Retornar (matriz, vertices).
-    """
-    pass
+def inserir_vertice(matriz, vertices, vertice): #refazer
+    if vertice not in vertices:
+        vertices.append(vertice)
+        for i in range (len(vertices)):
+            matriz[i].append(0)
+        
+        nova_linha = [0] * len(vertices)
+        matriz.append(nova_linha)
+            
+matriz, vertices = criar_grafo()
 
+# Adicionando vértices
+inserir_vertice(matriz, vertices, "A")
+inserir_vertice(matriz, vertices, "B")
+inserir_vertice(matriz, vertices, "C")
 
-def inserir_vertice(matriz, vertices, vertice):
-    """
-    Adiciona um novo vértice ao grafo.
-
-    Passos:
-    1. Verificar se o vértice já existe em 'vertices'.
-    2. Caso não exista:
-        - Adicionar o vértice à lista 'vertices'.
-        - Aumentar o tamanho da matriz:
-            a) Para cada linha existente, adicionar um valor 0 no final (nova coluna).
-            b) Adicionar uma nova linha com zeros do tamanho atualizado.
-    """
-    pass
+# Exibindo resultados
+print("Vértices do grafo:", vertices)
+print("Matriz de adjacência:")
+for linha in matriz:
+    print(linha)
 
 
 def inserir_aresta(matriz, vertices, origem, destino, nao_direcionado=False):
+    if (origem in vertices and destino in vertices):
+        #Localizar indice:
+        for i, linha in enumerate(matriz):
+            if origem in matriz:
+                j = linha.index(origem)
+            if destino in matriz:
+                j = linha.index(destino)
+        return 'b'
+    else:
+        for vertice in vertices:
+            inserir_vertice(matriz, vertices, vertice)
+        inserir_aresta(matriz, vertices, origem, destino)
     """
     Adiciona uma aresta entre dois vértices.
 
