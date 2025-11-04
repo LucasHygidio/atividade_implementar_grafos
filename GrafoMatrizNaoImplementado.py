@@ -169,7 +169,11 @@ def listar_vizinhos(matriz, vertices, vertice):#paola
     2. Chamar a função vizinhos() para obter a lista.
     3. Exibir a lista formatada (ex: print(f"Vizinhos de {v}: {lista}")).
     """
-    pass
+    if vertice in vertices:
+        lista = vizinhos(matriz, vertices, vertice)
+    
+        print(f"Vizinhos de {vertice}: {lista}")
+        #Precisa testar
 
 
 def exibir_grafo(matriz, vertices):#heloisa
@@ -187,8 +191,87 @@ def exibir_grafo(matriz, vertices):#heloisa
 
 def main(): #paola
 
-    pass
+    continuar = True
+    
+    while continuar:
+        print("""
+                1 - Mostrar o Grafo
+                2 - Inserir vertice
+                3 - Inserir aresta
+                4 - Remover vértice
+                5 - Remover aresta
+                6 - Verificar se a aresta existe
+                7 - Listar todos os vizinhos 
+                8 - Grau de um vertice
+                9 - Percurso valido
+                10 - Lista vizinho de um vertice
+                0 - Sair
+              """)
+        
+        opcao = input(str("\nEscolha uma opção: "))
+        
+        match opcao:
+            case "1":
+                print("Mostrar o Grafo\n")
+                exibir_grafo(g1)
+                
+                
+            case "2":
+                print("Inserir vertice\n")
+                vertice = input(str("Digite o valor do Vertice: "))
+                
+                inserir_vertice(g1, vertice)
+                
+                
+            case "3":
+                print("Inserir aresta\n")
+                aresta_origem = input(str("Digite a ORIGEM da aresta: "))
+                aresta_destino = input(str("Digite o DESTINO da aresta: "))
+                
+                inserir_aresta(g1, aresta_origem, aresta_destino)
+                
+                
+            case "4":
+                print("Remover vertice")
+                vertice_removido = input(str("Digite o vertice que deseja remover: "))
+                
+                remover_vertice(g1, vertice_removido)
+            
+            
+            case "5":
+                print("Remover aresta")
+                #remover_aresta()
+            
+            
+            case "6":
+                print("Verificar se a aresta existe")
+                #existe_aresta()
+                
+                
+            case "7":
+                print("Listar todos os vizinhos")
+                listar_vizinhos(matriz, vertice, vertices)
+                
+                
+            case "0":
+                print("Fim!")
+                continuar = False   
+                
+                """
+                1 - Mostrar o Grafo
+                2 - Inserir vertice
+                3 - Inserir aresta
+                4 - Remover vértice
+                5 - Remover aresta
+                6 - Verificar se a aresta existe
+                7 - Listar todos os vizinhos 
+                8 - Grau de um vertice
+                9 - Percurso valido
+                10 - Lista vizinho de um vertice
+                0 - Sair
+              """ 
 
 
 if __name__ == "__main__":
+    g1 = criar_grafo()
     main()
