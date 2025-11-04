@@ -3,7 +3,7 @@ def criar_grafo():
     vertices = []
     return matriz, vertices
 
-def inserir_vertice(matriz, vertices, vertice): #refazer
+def inserir_vertice(matriz, vertices, vertice): #refazer Lucas
     if vertice not in vertices:
         vertices.append(vertice)
         for i in range (len(vertices)):
@@ -26,7 +26,7 @@ for linha in matriz:
     print(linha)
 
 
-def inserir_aresta(matriz, vertices, origem, destino, nao_direcionado=False):
+def inserir_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #Heloisa
     if (origem in vertices and destino in vertices):
         #Localizar indice:
         for i, linha in enumerate(matriz):
@@ -52,7 +52,7 @@ def inserir_aresta(matriz, vertices, origem, destino, nao_direcionado=False):
     pass
 
 
-def remover_vertice(matriz, vertices, vertice):
+def remover_vertice(matriz, vertices, vertice): #Paola
     """
     Remove um vértice e todas as arestas associadas.
 
@@ -66,7 +66,7 @@ def remover_vertice(matriz, vertices, vertice):
     """
     pass
 
-def remover_aresta(matriz, vertices, origem, destino, nao_direcionado=False):
+def remover_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #Heloisa
     """
     Remove uma aresta entre dois vértices.
 
@@ -79,7 +79,7 @@ def remover_aresta(matriz, vertices, origem, destino, nao_direcionado=False):
     pass
 
 
-def existe_aresta(matriz, vertices, origem, destino):
+def existe_aresta(matriz, vertices, origem, destino): #Lucas
     """
     Verifica se existe uma aresta direta entre dois vértices.
 
@@ -91,7 +91,7 @@ def existe_aresta(matriz, vertices, origem, destino):
     pass
 
 
-def vizinhos(matriz, vertices, vertice):
+def vizinhos(matriz, vertices, vertice): #paola
     """
     Retorna a lista de vizinhos (vértices alcançáveis a partir de 'vertice').
 
@@ -106,7 +106,7 @@ def vizinhos(matriz, vertices, vertice):
     pass
 
 
-def grau_vertices(matriz, vertices):
+def grau_vertices(matriz, vertices):#helo
     """
     Calcula o grau de entrada, saída e total de cada vértice.
 
@@ -126,7 +126,7 @@ def grau_vertices(matriz, vertices):
     pass
 
 
-def percurso_valido(matriz, vertices, caminho):
+def percurso_valido(matriz, vertices, caminho):#lucas
     """
     Verifica se um percurso (sequência de vértices) é possível no grafo.
 
@@ -140,7 +140,7 @@ def percurso_valido(matriz, vertices, caminho):
     pass
 
 
-def listar_vizinhos(matriz, vertices, vertice):
+def listar_vizinhos(matriz, vertices, vertice):#paola
     """
     Exibe (ou retorna) os vizinhos de um vértice.
 
@@ -152,7 +152,7 @@ def listar_vizinhos(matriz, vertices, vertice):
     pass
 
 
-def exibir_grafo(matriz, vertices):
+def exibir_grafo(matriz, vertices):#heloisa
     """
     Exibe o grafo em formato de matriz de adjacência.
 
@@ -165,7 +165,7 @@ def exibir_grafo(matriz, vertices):
     pass
 
 
-def main():
+def main(): #paola
 
     pass
 
