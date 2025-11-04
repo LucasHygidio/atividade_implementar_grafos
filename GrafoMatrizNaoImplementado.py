@@ -64,7 +64,18 @@ def remover_vertice(matriz, vertices, vertice): #Paola
         - Remover a coluna (mesmo índice) de todas as outras linhas.
         - Remover o vértice da lista 'vertices'.
     """
-    pass
+    
+    if vertice in vertices:
+        indice = vertices.index(vertice)
+        matriz.pop(indice)
+        
+        for linha in matriz:
+            linha.pop(indice)
+            
+        vertices.remove(vertice) 
+        
+        return f"Vertice {vertice} removido com sucesso!"
+        #Precisa testar
 
 def remover_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #Heloisa
     """
@@ -103,8 +114,17 @@ def vizinhos(matriz, vertices, vertice): #paola
         - Adicionar o vértice correspondente na lista de vizinhos
     5. Retornar essa lista.
     """
-    pass
-
+    if vertice in vertices:
+        indice = vertices.index(vertice)
+        
+        vizinhos = []
+        
+        for i in range(len(matriz[indice])):
+            if matriz[indice][i] == 1:
+                vizinhos.append(vertice[i])
+            
+        return vizinhos
+        #Precisa testar
 
 def grau_vertices(matriz, vertices):#helo
     """

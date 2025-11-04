@@ -55,7 +55,7 @@ def remover_aresta(grafo, origem, destino, nao_direcionado=False):
         grafo[origem].remove(destino)
 
 
-def remover_vertice(grafo, vertice, nao_direcionado=True):
+def remover_vertice(grafo, vertice, nao_direcionado=True): #Revisar
     
     if (vertice not in grafo.keys()):
         return "Vertice não existente no grafo"
