@@ -102,13 +102,13 @@ def vizinhos(matriz, vertices, vertice): #paola
     if vertice in vertices:
         indice = vertices.index(vertice)
         
-        vizinhos = []
+        vizinho = []
         
         for i in range(len(matriz[indice])):
             if matriz[indice][i] == 1:
-                vizinhos.append(vertice[i])
+                vizinho.append(vertice[i])
             
-        return vizinhos
+        return vizinho
         #Precisa testar
 
 

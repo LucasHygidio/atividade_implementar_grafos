@@ -34,7 +34,7 @@ def listar_vizinhos(grafo, vertice):
     if vertice in grafo.keys():
         lista_vizinhos = list
         lista_vizinhos.append(vizinhos(grafo, vertice))
-        return listar_vizinhos
+        return lista_vizinhos
     else:
         print(f"Vértice '{vertice}' não encontrado")
   
