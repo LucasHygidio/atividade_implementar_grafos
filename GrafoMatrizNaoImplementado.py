@@ -27,18 +27,34 @@ for linha in matriz:
 
 def inserir_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #Heloisa
     if (origem in vertices and destino in vertices):
-        #Localizar indice:
-        for i, linha in enumerate(matriz):
-            if origem in matriz:
-                j = linha.index(origem)
-            if destino in matriz:
-                j = linha.index(destino)
-        return 'b'
+        i = vertices.index(origem)
+        j = vertices.index(destino)
+        matriz[i][j] = 1
+        
+        if nao_direcionado:
+            matriz[i][j] = 1
     else:
         for vertice in vertices:
             inserir_vertice(matriz, vertices, vertice)
-        inserir_aresta(matriz, vertices, origem, destino)
+    """
+    
+    Adiciona uma aresta entre dois vértices.
 
+    Passos:
+    1. Garantir que 'origem' e 'destino' existam em 'vertices':
+        - Se não existirem, chamar 'inserir_vertice' para adicioná-los.
+    2. Localizar o índice da origem (i) e do destino (j).
+    3. Marcar a conexão na matriz: matriz[i][j] = 1.
+    4. Se nao_direcionado=True, também marcar a conexão inversa matriz[j][i] = 1.
+    """
+    pass
+
+matriz1, vertices1 = criar_grafo()
+inserir_vertice(matriz1, vertices1, "b")
+inserir_vertice(matriz1, vertices1, "c")
+inserir_aresta(matriz1, vertices1, 'b', 'c')
+for linha in matriz1:
+    print(linha)
 
 def remover_vertice(matriz, vertices, vertice): #Paola
     
