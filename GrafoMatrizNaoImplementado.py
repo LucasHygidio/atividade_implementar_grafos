@@ -70,6 +70,7 @@ def remover_vertice(matriz, vertices, vertice): #Paola
         return f"Vertice {vertice} removido com sucesso!"
         #Precisa testar
 
+
 def remover_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #Heloisa
     """
     Remove uma aresta entre dois vértices.
@@ -109,6 +110,7 @@ def vizinhos(matriz, vertices, vertice): #paola
             
         return vizinhos
         #Precisa testar
+
 
 def grau_vertices(matriz, vertices):#helo
     """
@@ -151,9 +153,6 @@ def percurso_valido(matriz, vertices, caminho:list ):#lucas
     
     return True
             
-        
-
-
 
 def listar_vizinhos(matriz, vertices, vertice):#paola
     """
@@ -196,10 +195,10 @@ def main(): #paola
                 4 - Remover vértice
                 5 - Remover aresta
                 6 - Verificar se a aresta existe
-                7 - Listar todos os vizinhos 
+                7 - Lista vizinho de um vertice
                 8 - Grau de um vertice
                 9 - Percurso valido
-                10 - Lista vizinho de um vertice
+                10 - Listar todos os vizinhos de todos os vertices
                 0 - Sair
               """)
         
@@ -208,14 +207,14 @@ def main(): #paola
         match opcao:
             case "1":
                 print("Mostrar o Grafo\n")
-                exibir_grafo(g1)
+                #exibir_grafo()
                 
                 
             case "2":
                 print("Inserir vertice\n")
                 vertice = input(str("Digite o valor do Vertice: "))
                 
-                inserir_vertice(g1, vertice)
+                inserir_vertice(matriz, vertice)
                 
                 
             case "3":
@@ -223,14 +222,14 @@ def main(): #paola
                 aresta_origem = input(str("Digite a ORIGEM da aresta: "))
                 aresta_destino = input(str("Digite o DESTINO da aresta: "))
                 
-                inserir_aresta(g1, aresta_origem, aresta_destino)
+                inserir_aresta(matriz, aresta_origem, aresta_destino)
                 
                 
             case "4":
                 print("Remover vertice")
                 vertice_removido = input(str("Digite o vertice que deseja remover: "))
                 
-                remover_vertice(g1, vertice_removido)
+                remover_vertice(matriz, vertice_removido)
             
             
             case "5":
@@ -239,14 +238,40 @@ def main(): #paola
             
             
             case "6":
-                print("Verificar se a aresta existe")
-                #existe_aresta()
+                print("Verificar se a aresta existe no grafo")
+                origem = input(str("Digite a ORIGEM da Aresta: "))
+                destino = input(str("Digite o DESTINO da Aresta: "))
+                
+                existe_aresta(matriz, vertices, origem, destino)
                 
                 
             case "7":
                 print("Listar todos os vizinhos")
-                listar_vizinhos(matriz, vertice, vertices)
+                vertice_busca = input(str("Digite o vertice: "))
                 
+                vizinhos(matriz, vertices, vertice_busca)
+                
+            
+            case "8":
+                print("Grau de um vértice no grafo")
+                #grau_vertices
+            
+            case "9":
+                print("Verificar se o percurso válido")
+                percurso = percurso_valido()
+                
+                if percurso:
+                    print("É um percurso válido!")
+                else:
+                    print("Não é um percurso válido!")
+           
+                
+            case "10":
+                print("Listar todos os vizinhos")
+                vertice = input(str("Digite o vertice: "))
+                
+                listar_vizinhos(matriz, vertices, vertice)
+              
                 
             case "0":
                 print("Fim!")
@@ -268,5 +293,5 @@ def main(): #paola
 
 
 if __name__ == "__main__":
-    g1 = criar_grafo()
+    matriz, vertices = criar_grafo()
     main()
