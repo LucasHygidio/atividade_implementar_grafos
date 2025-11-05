@@ -3,23 +3,22 @@ def criar_grafo():
     vertices = []
     return matriz, vertices
 
-def inserir_vertice(matriz, vertices, vertice): #refazer Lucas
-    if vertice not in vertices:
-        vertices.append(vertice)
-        for i in range (len(vertices)):
-            matriz[i].append(0)
-        
-        nova_linha = [0] * len(vertices)
-        matriz.append(nova_linha)
-            
+def inserir_vertice(matriz, vertices, vertice):
+    if vertice in vertices:
+        return 
+    vertices.append(vertice)
+    for linha in matriz:
+        linha.append(0)
+    nova_linha = [0] * len(vertices)
+    matriz.append(nova_linha)
 matriz, vertices = criar_grafo()
 
-# Adicionando vértices
+#teste
 inserir_vertice(matriz, vertices, "A")
 inserir_vertice(matriz, vertices, "B")
 inserir_vertice(matriz, vertices, "C")
 
-# Exibindo resultados
+
 print("Vértices do grafo:", vertices)
 print("Matriz de adjacência:")
 for linha in matriz:
@@ -39,31 +38,9 @@ def inserir_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #H
         for vertice in vertices:
             inserir_vertice(matriz, vertices, vertice)
         inserir_aresta(matriz, vertices, origem, destino)
-    """
-    Adiciona uma aresta entre dois vértices.
-
-    Passos:
-    1. Garantir que 'origem' e 'destino' existam em 'vertices':
-        - Se não existirem, chamar 'inserir_vertice' para adicioná-los.
-    2. Localizar o índice da origem (i) e do destino (j).
-    3. Marcar a conexão na matriz: matriz[i][j] = 1.
-    4. Se nao_direcionado=True, também marcar a conexão inversa matriz[j][i] = 1.
-    """
-    pass
 
 
 def remover_vertice(matriz, vertices, vertice): #Paola
-    """
-    Remove um vértice e todas as arestas associadas.
-
-    Passos:
-    1. Verificar se o vértice existe em 'vertices'.
-    2. Caso exista:
-        - Descobrir o índice correspondente (usando vertices.index(vertice)).
-        - Remover a linha da matriz na posição desse índice.
-        - Remover a coluna (mesmo índice) de todas as outras linhas.
-        - Remover o vértice da lista 'vertices'.
-    """
     
     if vertice in vertices:
         indice = vertices.index(vertice)
@@ -91,29 +68,20 @@ def remover_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #H
 
 
 def existe_aresta(matriz, vertices, origem, destino): #Lucas
-    """
-    Verifica se existe uma aresta direta entre dois vértices.
 
-    Passos:
-    1. Verificar se ambos os vértices existem em 'vertices'.
-    2. Obter os índices (i, j).
-    3. Retornar True se matriz[i][j] == 1, caso contrário False.
-    """
-    pass
+    if origem in vertices and destino in vertices:
+        i = vertices.index(origem)
+        j = vertices.index(destino)
+        if matriz[i][j] == 1:
+            return True
+        else:
+            return False
+    else: 
+        False
 
 
 def vizinhos(matriz, vertices, vertice): #paola
-    """
-    Retorna a lista de vizinhos (vértices alcançáveis a partir de 'vertice').
 
-    Passos:
-    1. Verificar se 'vertice' existe em 'vertices'.
-    2. Obter o índice 'i' correspondente.
-    3. Criar uma lista de vizinhos vazia
-    4. Para cada item da linha matriz[i], verificar se == 1
-        - Adicionar o vértice correspondente na lista de vizinhos
-    5. Retornar essa lista.
-    """
     if vertice in vertices:
         indice = vertices.index(vertice)
         
@@ -146,7 +114,7 @@ def grau_vertices(matriz, vertices):#helo
     pass
 
 
-def percurso_valido(matriz, vertices, caminho):#lucas
+def percurso_valido(matriz, vertices, caminho:list ):#lucas
     """
     Verifica se um percurso (sequência de vértices) é possível no grafo.
 
@@ -157,7 +125,18 @@ def percurso_valido(matriz, vertices, caminho):#lucas
         - Se alguma não existir, retornar False.
     3. Se todas existirem, retornar True.
     """
-    pass
+    
+    for i in range(len(caminho) - 1):
+        origem = caminho[i]
+        destino = caminho[i + 1]
+        
+        if not existe_aresta(matriz, vertices, origem, destino):
+            return False
+    
+    return True
+            
+        
+
 
 
 def listar_vizinhos(matriz, vertices, vertice):#paola
