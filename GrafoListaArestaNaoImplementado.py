@@ -1,86 +1,54 @@
 def criar_grafo():#Lucas
-    """
-    Cria e retorna uma estrutura de grafo com lista de arestas e lista de vértices.
+    vertices = []
+    arestas = []
+    return vertices, arestas
 
-    Passos:
-    1. Criar uma lista vazia chamada 'vertices'.
-    2. Criar uma lista vazia chamada 'arestas', onde cada elemento será uma lista de tamanho 2 (origem, destino)
-    3. Retornar vertices e arestas
-    """
-    pass
+def inserir_vertice(vertices, vertice):#Lucas
+    if vertice not in vertices:
+        vertices.append(vertice)
 
-
-def inserir_vertice(vertices, vertice):#heloisa
-    """
-    Adiciona um novo vértice no grafo.
-
-    Passos:
-    1. Verificar se o vértice já existe em 'vertices'.
-    2. Se não existir, adicionar à lista 'vertices'.
-    """
-    pass
-
-def inserir_aresta(vertices, arestas, origem, destino, nao_direcionado=False):#Paola
-    """
-    Adiciona uma aresta entre dois vértices.
-
-    Passos:
-    1. Garantir que 'origem' e 'destino' existam em 'vertices'.
-       - Se não existirem, chamar 'inserir_vertice' para adicioná-los.
-    2. Adicionar uma lista [origem, destino] na lista 'arestas'.
-    3. Se nao_direcionado=True, adicionar também [destino, origem].
-    """
-    pass
+def inserir_aresta(vertices, arestas, origem, destino, nao_direcionado=False):#Lucas
+    if origem not in vertices:
+        inserir_vertice(vertices, origem)
+    if destino not in vertices:
+        inserir_vertice(vertices, destino)
+    if [origem, destino] not in arestas:
+        arestas.append([origem, destino])
+    if nao_direcionado and [destino, origem] not in arestas:
+        arestas.append([destino, origem])
 
 def remover_aresta(arestas, origem, destino, nao_direcionado=False):#Lucas
-    """
-    Remove uma aresta entre dois vértices.
+    if [origem, destino] in arestas:
+        arestas.remove([origem, destino])
 
-    Passos:
-    1. Percorrer a lista de Arestas procurando [origem, destino]
-    2. Se encontrar, remover
-    3. Se nao_direcionado=True, também procurar por [destino, origem]
-    """
-    pass
+    if nao_direcionado and [destino, origem] in arestas:
+        arestas.remove([destino, origem])
+            
+def remover_vertice(vertices, arestas, vertice):#Lucas
+    if vertice in vertices:
+        novas_arestas = []
+        for a in arestas:
+            if vertice not in a:
+                novas_arestas.append(a)
+        arestas[:] = novas_arestas
+        vertices.remove(vertice)
 
-def remover_vertice(vertices, arestas, vertice):#Heloisa
-    """
-    Remove um vértice e todas as arestas conectadas a ele.
-
-    Passos:
-    1. Verificar se o vértice existe na lista de vertices.
-    2. Caso encontrado, remover o vértice da lista 'vertices'.
-    3. Percorrer a lista de 'arestas' e remover todas onde o vértice aparece
-       como origem ou destino.
-    """
-    pass
-
-def existe_aresta(arestas, origem, destino):#Paola
-    """
-    Verifica se existe uma aresta entre origem e destino.
-
-    Passos:
-    1. Percorrer a lista de aresta procurando [origem, destino]
-    2. Retornar True se encontrar
-    3. Caso não encontre na lista, retornar False no final.
-    """
-    pass
+def existe_aresta(arestas, origem, destino):#Lucas
+    if [origem, destino] in arestas:
+        return True
+    return False
 
 
 def vizinhos(vertices, arestas, vertice):#Lucas
-    """
-    Retorna a lista de vizinhos (vértices alcançáveis a partir de 'vertice').
-
-    Passos:
-    1. Criar uma lista vazia chamada 'vizinhos'.
-    2. Percorrer todas as arestas [origem, destino].
-    3. Se origem == vertice, adicionar destino na lista de vizinhos.
-    4. Retornar a lista final.
-    """
-    pass
+    vizinhos = []
+    if vertice in vertices:
+        for i in range (len(arestas)):
+            if arestas[i][0] == vertice:
+                vizinhos.append(arestas[i][1])
+    return vizinhos
 
 
-def grau_vertices(vertices, arestas):#heloisa
+def grau_vertices(vertices, arestas, nao_direcionado = False):#heloisa
     """
     Calcula o grau de entrada, saída e total de cada vértice.
 
@@ -95,7 +63,7 @@ def grau_vertices(vertices, arestas):#heloisa
             - Calcular o grau total (entrada + saída).
     4. Retornar o dicionário 'graus' para cada vértice.
     """
-    pass
+    
 
 
 def percurso_valido(arestas, caminho):#Paola
