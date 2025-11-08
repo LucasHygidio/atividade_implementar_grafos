@@ -122,10 +122,9 @@ def vizinhos(matriz, vertices, vertice): #paola
         
         for i in range(len(matriz[indice])):
             if matriz[indice][i] == 1:
-                vizinho.append(vertice[i])
+                vizinho.append(vertices[i])
             
         return vizinho
-        #Precisa testar
 
 
 def grau_vertices(matriz, vertices):#helo
@@ -237,10 +236,9 @@ def main(): #paola
                 4 - Remover vértice
                 5 - Remover aresta
                 6 - Verificar se a aresta existe
-                7 - Lista vizinho de um vertice
-                8 - Grau de um vertice
-                9 - Percurso valido
-                10 - Listar todos os vizinhos de todos os vertices
+                7 - Grau de um vertice
+                8 - Percurso valido
+                9 - Listar todos os vizinhos de todos os vertices
                 0 - Sair
               """)
         
@@ -249,22 +247,22 @@ def main(): #paola
         match opcao:
             case "1":
                 print("Mostrar o Grafo\n")
-                #exibir_grafo()
+                exibir_grafo(matriz, vertices)
                 
                 
             case "2":
                 print("Inserir vertice\n")
-                vertice = input(str("Digite o valor do Vertice: "))
+                v = input(str("Digite o valor do Vertice: "))
                 
-                inserir_vertice(matriz, vertice)
+                inserir_vertice(matriz, vertices, v)
                 
                 
             case "3":
                 print("Inserir aresta\n")
-                aresta_origem = input(str("Digite a ORIGEM da aresta: "))
-                aresta_destino = input(str("Digite o DESTINO da aresta: "))
+                o = input(str("Digite a ORIGEM da aresta: "))
+                d = input(str("Digite o DESTINO da aresta: "))
                 
-                inserir_aresta(matriz, aresta_origem, aresta_destino)
+                inserir_aresta(matriz, vertices, o, d)
                 
                 
             case "4":
@@ -276,62 +274,56 @@ def main(): #paola
             
             case "5":
                 print("Remover aresta")
-                #remover_aresta()
+                o = input(str("Digite a ORIGEM da aresta: "))
+                d = input(str("Digite o DESTINO da aresta: "))
+                
+                remover_aresta(matriz, vertices, o, d)
             
             
             case "6":
                 print("Verificar se a aresta existe no grafo")
-                origem = input(str("Digite a ORIGEM da Aresta: "))
-                destino = input(str("Digite o DESTINO da Aresta: "))
+                o = input(str("Digite a ORIGEM da Aresta: "))
+                d = input(str("Digite o DESTINO da Aresta: "))
                 
-                existe_aresta(matriz, vertices, origem, destino)
+                aresta = existe_aresta(matriz, vertices, o, d)
+                
+                if aresta:
+                    print(f"A resta [{o}, {d}] está no grafo.")
+                else:
+                    print(f"A resta [{o}, {d}] não existe.")
                 
                 
             case "7":
-                print("Listar todos os vizinhos")
-                vertice_busca = input(str("Digite o vertice: "))
+                print("Grau de um vértice no grafo")
+                g = grau_vertices(matriz, vertices)
                 
-                vizinhos(matriz, vertices, vertice_busca)
-                
+                print(g)
+            
             
             case "8":
-                print("Grau de um vértice no grafo")
-                #grau_vertices
-            
-            case "9":
                 print("Verificar se o percurso válido")
-                percurso = percurso_valido()
+                p =  input(str("Digite o percurso: "))
+                
+                per = p.split(", ")
+                percurso = percurso_valido(matriz, vertices, per)
                 
                 if percurso:
                     print("É um percurso válido!")
                 else:
                     print("Não é um percurso válido!")
-           
                 
-            case "10":
+                
+            case "9":
                 print("Listar todos os vizinhos")
                 vertice = input(str("Digite o vertice: "))
                 
                 listar_vizinhos(matriz, vertices, vertice)
-              
+
                 
             case "0":
                 print("Fim!")
                 continuar = False   
-                
-                """
-                1 - Mostrar o Grafo
-                2 - Inserir vertice
-                3 - Inserir aresta
-                4 - Remover vértice
-                5 - Remover aresta
-                6 - Verificar se a aresta existe
-                7 - Listar todos os vizinhos 
-                8 - Grau de um vertice
-                9 - Percurso valido
-                10 - Lista vizinho de um vertice
-                0 - Sair
-              """ 
+            
 
 
 if __name__ == "__main__":

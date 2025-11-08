@@ -7,6 +7,7 @@ def inserir_vertice(vertices, vertice):#Lucas
     if vertice not in vertices:
         vertices.append(vertice)
 
+
 def inserir_aresta(vertices, arestas, origem, destino, nao_direcionado=False):#Lucas
     if origem not in vertices:
         inserir_vertice(vertices, origem)
@@ -17,12 +18,14 @@ def inserir_aresta(vertices, arestas, origem, destino, nao_direcionado=False):#L
     if nao_direcionado and [destino, origem] not in arestas:
         arestas.append([destino, origem])
 
+
 def remover_aresta(arestas, origem, destino, nao_direcionado=False):#Lucas
     if [origem, destino] in arestas:
         arestas.remove([origem, destino])
 
     if nao_direcionado and [destino, origem] in arestas:
         arestas.remove([destino, origem])
+            
             
 def remover_vertice(vertices, arestas, vertice):#Lucas
     if vertice in vertices:
@@ -32,6 +35,7 @@ def remover_vertice(vertices, arestas, vertice):#Lucas
                 novas_arestas.append(a)
         arestas[:] = novas_arestas
         vertices.remove(vertice)
+
 
 def existe_aresta(arestas, origem, destino):#Lucas
     if [origem, destino] in arestas:
@@ -83,7 +87,6 @@ def grau_vertices(vertices, arestas, nao_direcionado = False):#heloisa
     return graus
     
 
-
 def percurso_valido(arestas, caminho):#Paola
     """
     Verifica se um percurso é possível (seguindo as arestas na ordem dada).
@@ -95,10 +98,17 @@ def percurso_valido(arestas, caminho):#Paola
         - Se alguma não existir, retornar False.
     3. Se todas existirem, retornar True.
     """
-    pass
+    for i in range(len(caminho) - 2):
+        u = caminho[i]
+        v = caminho[i + 1]
+        
+        if not existe_aresta(arestas, u, v):
+            return False 
+
+    return True  
 
 
-def listar_vizinhos(vertices, arestas, vertice):#Lucas
+def listar_vizinhos(vertices, arestas, vertice):#Paola
     """
     Exibe os vizinhos de um vértice.
 
@@ -106,7 +116,12 @@ def listar_vizinhos(vertices, arestas, vertice):#Lucas
     1. Chamar a função vizinhos() para obter a lista.
     2. Exibir a lista formatada.
     """
-    pass
+    lista = vizinhos(vertices, arestas, vertice)
+    
+    if lista:
+        print(f"Vizinhos de {vertice}: {lista}")
+    else:
+        print(f"O vértice '{vertice}' não possui vizinhos ou não existe.")
 
 
 def exibir_grafo(vertices, arestas):#Heloisa
@@ -129,8 +144,94 @@ def exibir_grafo(vertices, arestas):#Heloisa
 
 
 def main():#Paola
-    pass
+    continuar = True
+    
+    while continuar:
+        print("""
+                1 - Exibir o Grafo
+                2 - Inserir vertice
+                3 - Inserir aresta
+                4 - Remover aresta
+                5 - Remover vertice
+                6 - Existe aresta
+                7 - Grau de todos os vertices
+                8 - Percurso valido
+                9 - Listar todos os vizinhos 
+                0 - Sair
+              """)
+        
+        opcao = input(str("\nEscolha uma opção: "))
+        
+        match opcao:
+            case "1":
+               exibir_grafo(vertices, arestas)
+           
+           
+            case "2":
+                v = input(str("Digite o valor do vertice: "))
+                inserir_vertice(vertices, v)
+                
+                
+            case "3":
+                o = input(str("Digite a ORIGEM da aresta: "))
+                d = input(str("Digite o DESTINO da aresta: "))
+                
+                inserir_aresta(vertices, arestas, o, d)
+            
+            
+            case "4":
+                o = input(str("Digite a ORIGEM da aresta a ser removida: "))
+                d = input(str("Digite o DESTINO da aresta a ser removida: "))
+                
+                remover_aresta(arestas, o, d)
+                
+            
+            case "5":
+                v = input(str("Digite o VERTICE a ser removido: "))
+                remover_vertice(vertices, arestas, v)
+                
+                
+            case "6":
+                o = input(str("Digite a ORIGEM da aresta: "))
+                d = input(str("Digite o DESTINO da aresta: "))
+                
+                aresta = existe_aresta(arestas, o, d)
+                
+                if aresta:
+                    print(f"A aresta [{o}, {d}] existe no grafo")
+                else:
+                    print(f"A aresta [{o}, {d}] não existe no grafo!")
+                
+                
+            case "7":
+                grau = grau_vertices(vertices, arestas)
+                print(f"{grau}\n")
+            
+            
+            case "8":
+                c = input("Digite o caminho a ser percorrido: ")
+                cam = c.split(', ')
+                
+                percurso = percurso_valido(arestas, cam)
+                
+                if percurso:
+                   print("O percurso é valido")
+                   
+                else:
+                    print("O percurso não é possivel")
+                
+               
+            case "9":
+                v = input(str("Digite o vartice: "))
+                
+                listar_vizinhos(vertices, arestas, v)
+            
+            
+            case "0":
+                print("Fim!")
+                continuar = False   
 
 
 if __name__ == "__main__":
+    vertices, arestas = criar_grafo()
     main()
