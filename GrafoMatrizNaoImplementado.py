@@ -26,32 +26,37 @@ for linha in matriz:
 
 
 def inserir_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #Heloisa
-    if (origem in vertices and destino in vertices):
-        i = vertices.index(origem)
-        j = vertices.index(destino)
-        matriz[i][j] = 1
-        
-        if nao_direcionado:
-            matriz[i][j] = 1
-    else:
-        for vertice in vertices:
-            inserir_vertice(matriz, vertices, vertice)
     """
-    
     Adiciona uma aresta entre dois vértices.
 
     Passos:
     1. Garantir que 'origem' e 'destino' existam em 'vertices':
-        - Se não existirem, chamar 'inserir_vertice' para adicioná-los.
+       - Se não existirem, chamar 'inserir_vertice' para adicioná-los.
     2. Localizar o índice da origem (i) e do destino (j).
     3. Marcar a conexão na matriz: matriz[i][j] = 1.
     4. Se nao_direcionado=True, também marcar a conexão inversa matriz[j][i] = 1.
     """
-    pass
+    
+    if origem not in vertices:
+        print(f"Vértice '{origem}' não existia. Adicionando...")
+        inserir_vertice(matriz, vertices, origem)
+        
+    if destino not in vertices:
+        print(f"Vértice '{destino}' não existia. Adicionando...")
+        inserir_vertice(matriz, vertices, destino)
+        
+    i = vertices.index(origem)
+    j = vertices.index(destino)
+    
+    matriz[i][j] = 1
+    
+    if nao_direcionado:
+        matriz[j][i] = 1
+    
 
 matriz1, vertices1 = criar_grafo()
-inserir_vertice(matriz1, vertices1, "b")
-inserir_vertice(matriz1, vertices1, "c")
+# inserir_vertice(matriz1, vertices1, "b")
+# inserir_vertice(matriz1, vertices1, "c")
 inserir_aresta(matriz1, vertices1, 'b', 'c')
 for linha in matriz1:
     print(linha)
@@ -81,7 +86,18 @@ def remover_aresta(matriz, vertices, origem, destino, nao_direcionado=False): #H
     3. Remover a aresta: matriz[i][j] = 0.
     4. Se nao_direcionado=True, também remover a inversa: matriz[j][i] = 0.
     """
-    pass
+    
+    if origem not in vertices or destino not in vertices:
+        print(f"Erro:Um ou os dois vertives ({origem}, {destino}) não existem no grafo.")
+        return 
+
+    i = vertices.index(origem)
+    j = vertices.index(destino)
+    
+    matriz[i][j] = 0
+    
+    if nao_direcionado:
+        matriz[j][i] = 0
 
 
 def existe_aresta(matriz, vertices, origem, destino): #Lucas
@@ -129,7 +145,26 @@ def grau_vertices(matriz, vertices):#helo
         graus[vértice] = {"saida": x, "entrada": y, "total": z} ou graus[vértice] = x.
     4. Retornar 'graus'.
     """
-    pass
+    graus = {}
+    num_vertices = len(vertices)
+    
+    for i, vertice in enumerate(vertices):
+        
+        grau_saida = sum(matriz[i])
+        
+        grau_entrada = 0
+        for j in range(num_vertices):
+            grau_entrada += matriz[j][i]
+            
+        grau_total = grau_saida + grau_entrada
+        
+        graus[vertice] = {
+            "saida": grau_saida,
+            "entrada": grau_entrada,
+            "total": grau_total
+        }
+        
+    return graus
 
 
 def percurso_valido(matriz, vertices, caminho:list ):#lucas
@@ -180,7 +215,14 @@ def exibir_grafo(matriz, vertices):#heloisa
         - Mostrar o nome do vértice.
         - Mostrar os valores da linha (0 ou 1) separados por espaço.
     """
-    pass
+    print("  ", end=" ") 
+    for v in vertices:
+        print(v, end=" ")
+    print() 
+    for i, linha in enumerate(matriz):
+        print(f"{vertices[i]} ", end=" ")
+        
+        print(" ".join(str(valor) for valor in linha))
 
 
 def main(): #paola
