@@ -63,6 +63,24 @@ def grau_vertices(vertices, arestas, nao_direcionado = False):#heloisa
             - Calcular o grau total (entrada + saída).
     4. Retornar o dicionário 'graus' para cada vértice.
     """
+    graus = {}
+    for v in vertices:
+        graus[v] = {"saida": 0, "entrada": 0}
+
+    for aresta in arestas:
+        origem = aresta[0]
+        destino = aresta[1]
+        
+        if origem in graus:
+            graus[origem]["saida"] += 1
+            
+        if destino in graus:
+            graus[destino]["entrada"] += 1
+            
+    for v in graus:
+        graus[v]["total"] = graus[v]["saida"] + graus[v]["entrada"]
+        
+    return graus
     
 
 
@@ -99,7 +117,15 @@ def exibir_grafo(vertices, arestas):#Heloisa
     1. Exibir a lista de vértices.
     2. Exibir todas as arestas no formato (origem -> destino).
     """
-    pass
+    print(f"Vértices: {vertices}")
+    
+    print("Arestas:")
+    
+    if not arestas:
+        print("  (Grafo vazio, sem arestas)")
+    else:
+        for aresta in arestas:
+            print(f"  {aresta[0]} -> {aresta[1]}")
 
 
 def main():#Paola
