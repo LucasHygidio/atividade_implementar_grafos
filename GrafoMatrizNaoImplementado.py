@@ -227,6 +227,17 @@ def exibir_grafo(matriz, vertices):#heloisa
 def main(): #paola
 
     continuar = True
+    nao_direcionado = False
+    while True:
+        resposta = input("O grafo é direcionado ? ").lower().strip()
+
+        if resposta in ["s", "n"]:
+            break 
+        else:
+            print("Erro: Resposta inválida. Por favor, digite apenas 's' ou 'n'.")
+    
+    if resposta == "n":
+        nao_direcionado = True
     
     while continuar:
         print("""
@@ -262,14 +273,13 @@ def main(): #paola
                 o = input(str("Digite a ORIGEM da aresta: "))
                 d = input(str("Digite o DESTINO da aresta: "))
                 
-                inserir_aresta(matriz, vertices, o, d)
+                inserir_aresta(matriz, vertices, o, d, nao_direcionado)
                 
                 
             case "4":
-                print("Remover vertice")
-                vertice_removido = input(str("Digite o vertice que deseja remover: "))
-                
-                remover_vertice(matriz, vertice_removido)
+                print("Remover vértice")
+                vertice_removido = input(str("Digite o vértice que deseja remover: "))
+                print(remover_vertice(matriz, vertices, vertice_removido))
             
             
             case "5":
@@ -277,7 +287,7 @@ def main(): #paola
                 o = input(str("Digite a ORIGEM da aresta: "))
                 d = input(str("Digite o DESTINO da aresta: "))
                 
-                remover_aresta(matriz, vertices, o, d)
+                remover_aresta(matriz, vertices, o, d, nao_direcionado)
             
             
             case "6":

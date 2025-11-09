@@ -116,6 +116,17 @@ def percurso_valido(grafo, caminho):
 
 def main():
     continuar = True
+    nao_direcionado = False
+    while True:
+        resposta = input("O grafo é direcionado ? ").lower().strip()
+
+        if resposta in ["s", "n"]:
+            break 
+        else:
+            print("Erro: Resposta inválida. Por favor, digite apenas 's' ou 'n'.")
+    
+    if resposta == "n":
+        nao_direcionado = True
     
     while continuar:
         print("""
@@ -145,13 +156,13 @@ def main():
                 aresta_destino = input(str("Digite o DESTINO da aresta: "))
                 tipo_grafo = input(bool("*Opcional: \nDigite o tipo do grafo (Direcionado - True | Não Direcionado - False)"))
                 
-                inserir_aresta(grafo1, aresta_origem, aresta_destino)
+                inserir_aresta(grafo1, aresta_origem, aresta_destino, nao_direcionado)
                 
             case "4":
                 print("Remover vertice")
                 vertice_removido = input(str("Digite o vertice que deseja remover: "))
                 
-                remover_vertice(grafo1, vertice_removido)
+                remover_vertice(grafo1, vertice_removido, nao_direcionado)
             
             case "0":
                 print("Fim!")

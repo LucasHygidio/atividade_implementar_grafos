@@ -145,7 +145,18 @@ def exibir_grafo(vertices, arestas):#Heloisa
 
 def main():#Paola
     continuar = True
+    nao_direcionado = False
+    while True:
+        resposta = input("O grafo é direcionado ? ").lower().strip()
+
+        if resposta in ["s", "n"]:
+            break 
+        else:
+            print("Erro: Resposta inválida. Por favor, digite apenas 's' ou 'n'.")
     
+    if resposta == "n":
+        nao_direcionado = True
+
     while continuar:
         print("""
                 1 - Exibir o Grafo
@@ -176,14 +187,14 @@ def main():#Paola
                 o = input(str("Digite a ORIGEM da aresta: "))
                 d = input(str("Digite o DESTINO da aresta: "))
                 
-                inserir_aresta(vertices, arestas, o, d)
+                inserir_aresta(vertices, arestas, o, d, nao_direcionado)
             
             
             case "4":
                 o = input(str("Digite a ORIGEM da aresta a ser removida: "))
                 d = input(str("Digite o DESTINO da aresta a ser removida: "))
                 
-                remover_aresta(arestas, o, d)
+                remover_aresta(arestas, o, d, nao_direcionado)
                 
             
             case "5":
@@ -204,7 +215,7 @@ def main():#Paola
                 
                 
             case "7":
-                grau = grau_vertices(vertices, arestas)
+                grau = grau_vertices(vertices, arestas, nao_direcionado)
                 print(f"{grau}\n")
             
             
