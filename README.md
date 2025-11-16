@@ -14,6 +14,6 @@
     - Verificar se um determinado percurso é possível
 
 - Busca em Largura Padrão em lista de arestas - [LINK](https://github.com/LucasHygidio/atividade_implementar_grafos/blob/master/busca_largura_padrao_lista_aresta.py)
-- Busca em Largura para encontrar Menor Caminho
+- Busca em Largura para encontrar Menor Caminho - [LINK](https://github.com/LucasHygidio/atividade_implementar_grafos/blob/master/menor_caminho.py)
 
 ---
