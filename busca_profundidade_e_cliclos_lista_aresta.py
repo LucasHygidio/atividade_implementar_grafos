@@ -1,10 +1,6 @@
-# Busca em Largura (vBreadth-First Search – BFS)
-#visitar todos os vértices a partir de um vértice inicial em camadas
-
-# Usando o deque pela fila otimizada (Reduz complexidade de tempo) -> implementado internamente como uma lista duplamente ligada
+#Busca em profundidade
 from collections import deque
 
-# Para usar de teste para o BFS
 def criar_grafo():
     """
     Inicializa o grafo retornando listas vazias para vértices e arestas.
@@ -147,106 +143,117 @@ def exibir_grafo(vertices, arestas):
         for aresta in arestas:
             print(f"  {aresta[0]} -> {aresta[1]}")
 
-def bfs_lista_aresta(vertices, arestas, inicio):
-    """Faz a busca em largura em um grafo por lista de arestas
-
-    Args:
-        vertices (lista): A lista de vértices do grafo
-        arestas (lista): A lista de arestas do grafo
-        inicio (string): O vértice de partida para a busca
+def dfs(vertices, arestas, inicio):
+    """
+    Implementação da DFS
     """
     
     if inicio not in vertices:
-        print(f"Erro: O vertice inicial '{inicio} não existe")
+        print(f"Erro: O vértice '{inicio}' não existe.")
         return []
-    
-    fila = deque([inicio])
-    visitados = {inicio}
-    caminho = []
-    
-    while fila:
-        vertice_atual = fila.popleft()
-        caminho.append(vertice_atual)
-        lista_vizinhos = vizinhos(vertices, arestas, vertice_atual)
+
+    pilha = [inicio]
+    visitados = []
+    while pilha:
         
-        for i in lista_vizinhos:
-            if i not in visitados:
-                visitados.add(i)
-                fila.append(i)
-    return caminho
+        vertice_atual = pilha.pop()
+        if vertice_atual not in visitados:
+            visitados.append(vertice_atual)
+            lista_vizinhos = vizinhos(vertices, arestas, vertice_atual)
+
+            for vizinho in reversed(lista_vizinhos):
+                if vizinho not in visitados:
+                    if vizinho not in pilha:
+                        pilha.append(vizinho)
+
+    return visitados
+
+def detectar_ciclo_dfs(vertices, arestas, inicio):
+    """
+    Detecta os ciclos com dfs
+    """
+    if inicio not in vertices:
+        print(f"Erro: Vértice {inicio} inválido.")
+        return False
+
+    pilha = [(inicio, None)]
+    visitados = []
+    
+    mapa_pais = {inicio: None}
+
+    while pilha:
+        vertice_atual, pai = pilha.pop()
+
+        if vertice_atual not in visitados:
+            visitados.append(vertice_atual)
+
+            lista_vizinhos = vizinhos(vertices, arestas, vertice_atual)
+
+            for vizinho in reversed(lista_vizinhos):
+                
+                esta_na_pilha = any(vizinho == item[0] for item in pilha)
+                ja_visitado = vizinho in visitados
+
+                if not esta_na_pilha and not ja_visitado:
+                    pilha.append((vizinho, vertice_atual))
+                    mapa_pais[vizinho] = vertice_atual
+                
+                else:
+                    if vizinho != pai:
+                        print(f"\n>>> CICLO DETECTADO! Aresta que fechou: {vertice_atual} -> {vizinho}")
+                        
+                        
+                        caminho_ciclo = [vertice_atual]
+                        temp = vertice_atual
+                        
+                        while temp != vizinho and temp is not None:
+                            temp = mapa_pais[temp]
+                            if temp is not None:
+                                caminho_ciclo.append(temp)
+                        
+                        caminho_ciclo.reverse()
+                        
+                        caminho_ciclo.append(vizinho) 
+
+                        print(f"Caminho do Ciclo: {caminho_ciclo}")
+                        return True
+
+    return False
 
 def menu_interativo(vertices, arestas, nao_direcionado):
-    """
-    Seleção manual dos vertices, areastas, etc.
-    Opções:
-                1 - Exibir o Grafo
-                2 - Inserir Aresta
-                3 - Remover Aresta
-                4 - Executar Busca em Largura (BFS)
-                5 - Verificar Grau dos Vértices
-                0 - Sair
-    """
     continuar = True
-    
     while continuar:
         print("\n" + "="*40)
-        print("  MENU PRINCIPAL DO GRAFO DE TESTE")
+        print("  MENU PRINCIPAL")
         print("="*40)
-        print("""
-                1 - Exibir o Grafo
-                2 - Inserir Aresta
-                3 - Remover Aresta
-                4 - Executar Busca em Largura (BFS)
-                5 - Verificar Grau dos Vértices
-                0 - Sair
-            """)
+        print("1 - Exibir Grafo\n2 - Inserir Aresta\n3 - Remover Aresta")
+        print("4 - DFS (Profundidade)")
+        print("5 - Graus dos Vértices")
+        print("6 - Detectar Ciclo (DFS)") # NOVA OPÇÃO
+        print("0 - Sair")
         
-        opcao = input(str("\nEscolha uma opção: "))
+        
+        opcao = input("\nOpção: ")
         
         match opcao:
-            case "1":
-                exibir_grafo(vertices, arestas)
-            
-            case "2":
-                o = input(str("Digite a ORIGEM da aresta: "))
-                d = input(str("Digite o DESTINO da aresta: "))
-                inserir_aresta(vertices, arestas, o, d, nao_direcionado)
-                print(f"Aresta {o} -> {d} inserida.")
-            
-            case "3":
-                o = input(str("Digite a ORIGEM da aresta a ser removida: "))
-                d = input(str("Digite o DESTINO da aresta a ser removida: "))
-                remover_aresta(arestas, o, d, nao_direcionado)
-                print(f"Aresta {o} -> {d} removida (se existia).")
-            
-            case "4":
-                if not vertices:
-                    print("O grafo está vazio. Insira vértices primeiro.")
-                    break
-
-                inicio = input(str("Digite o VÉRTICE INICIAL para o BFS: "))
-                
-                if inicio not in vertices:
-                    print(f"Erro: O vértice '{inicio}' não existe.")
-                    break
-                    
-                resultado = bfs_lista_aresta(vertices, arestas, inicio)
-                if resultado:
-                    print(f"\nPercurso BFS a partir de '{inicio}': {resultado}\n")
-            
+            case "1": exibir_grafo(vertices, arestas)
+            case "2": 
+                inserir_aresta(vertices, arestas, input("Origem: "), input("Destino: "), nao_direcionado)
+            case "3": 
+                remover_aresta(arestas, input("Origem: "), input("Destino: "), nao_direcionado)
+            case "4": 
+                print(dfs(vertices, arestas, input("Início DFS: ")))
             case "5":
-                grau = grau_vertices(vertices, arestas, nao_direcionado)
-                print("\nGrau dos Vértices:")
-                for v, g in grau.items():
-                    print(f"  Vértice {v}: Entrada={g['entrada']}, Saída={g['saida']}, Total={g['total']}")
-                print("")
+                print(grau_vertices(vertices, arestas, nao_direcionado))
+            case "6":
+                v_inicial = input("Vértice Inicial para verificação: ")
+                if detectar_ciclo_dfs(vertices, arestas, v_inicial):
+                    print(">>> O Grafo POSSUI Ciclo! <<<")
+                else:
+                    print(">>> O Grafo NÃO possui Ciclo. <<<")
             
-            case "0":
-                print("Fim!")
-                continuar = False 
-            
-            case _:
-                print("Opção inválida. Tente novamente.")
+            case "0": continuar = False
+            case _: print("Inválido.")
 
 
 if __name__ == "__main__":

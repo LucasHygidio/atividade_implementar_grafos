@@ -16,4 +16,6 @@
 - Busca em Largura Padrão em lista de arestas - [LINK](https://github.com/LucasHygidio/atividade_implementar_grafos/blob/master/busca_largura_padrao_lista_aresta.py)
 - Busca em Largura para encontrar Menor Caminho - [LINK](https://github.com/LucasHygidio/atividade_implementar_grafos/blob/master/menor_caminho.py)
 
+- Busca em Profundidade em lista de arestas - [LINK](https://github.com/LucasHygidio/atividade_implementar_grafos/blob/master/busca_profundidade_e_ciclos_lista_aresta.py)
+- Detecção de ciclos utilizando Busca em Profundidade - [LINK](https://github.com/LucasHygidio/atividade_implementar_grafos/blob/master/busca_profundidade_e_ciclos_lista_aresta.py)
 ---
